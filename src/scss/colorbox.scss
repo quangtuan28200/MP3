@@ -1,0 +1,17 @@
+.color_box {
+    width: 200px;
+    height: 200px;
+    background-color: deeppink;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    color: white;
+
+    &:hover {
+        background-color: rgb(221, 0, 118);
+    }
+}
