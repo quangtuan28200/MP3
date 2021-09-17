@@ -1,0 +1,16 @@
+.post-list {
+    margin-top: 20px;
+    padding: 0;
+}
+
+.post-item {
+    padding: 8px;
+    border-radius: 4px;
+    background-color: #eee;
+    list-style: none;
+    margin-bottom: 8px;
+    &:hover {
+        cursor: pointer;
+        background-color: #ccc;
+    }
+}

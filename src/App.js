@@ -5,10 +5,34 @@ import Textfield from "@atlaskit/textfield";
 import Button from '@atlaskit/button'
 import { v4 } from 'uuid';
 import TodoList2 from "./components/TodoList2";
+import TodoForm from "./components/TodoForm";
+import PostList from "./components/PostList";
 
 const TODO_APP_STORAGE_KEY = "TODO_APP";
 
 function App() {
+
+  //-----------------------------------------------------POST_LIST----------------//
+
+  const [postList, setpostList] = useState([])
+
+  useEffect(() => {
+    async function fetchPostList() {
+      try {
+        const URL = 'http://js-post-api.herokuapp.com/api/posts?_limit=10&_page=1'
+        const response = await fetch(URL)
+        const responseJSON = await response.json();
+
+        const { data } = responseJSON
+        setpostList(data)
+      } catch (error) {
+        alert("failed to load data: ", error.message)
+      }
+
+    }
+
+    fetchPostList()
+  }, [])
 
   //-----------------------------------------------------TODO_LIST_2----------------//
 
@@ -26,6 +50,14 @@ function App() {
     newTodoList.splice(index, 1);
     setTodoList2(newTodoList);
     console.log(todoList2)
+  }
+
+  function getTodoItem(todoItem) {
+    console.log(todoItem)
+
+    const newTodoList = [todoItem, ...todoList2]
+    // newTodoList.push(todoItem)
+    setTodoList2(newTodoList)
   }
 
   //-----------------------------------------------------TODO_LIST----------------//
@@ -88,7 +120,11 @@ function App() {
       <ColorBox />
 
       {/* TODO_LIST_2 */}
+      <TodoForm getTodoItem={getTodoItem} />
       <TodoList2 todos={todoList2} onTodoClick={handleTodoClick} />
+
+      {/* POST_LIST */}
+      <PostList posts={postList} />
     </>
   );
 }
